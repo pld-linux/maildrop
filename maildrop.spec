@@ -1,12 +1,12 @@
 Summary:	maildrop mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	1.6.0
+Version:	1.6.1
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	1e50a41d57750e83ca077558c0fd66b3
+# Source0-md5:	3789c21e20ad16524a638fc5297598d7
 URL:		http://www.flounder.net/~mrsam/maildrop/
 BuildRequires:	gcc-c++
 BuildRequires:	gdbm-devel
