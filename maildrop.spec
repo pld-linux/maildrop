@@ -1,13 +1,15 @@
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	1.6.3
-Release:	3
+Version:	1.7.0
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	bfb3ac8e182285fb683631ddfebd26fb
-URL:		http://www.flounder.net/~mrsam/maildrop/
+# Source0-md5:	fa2dbbb84795e459db36ea0013f6f214
+URL:		http://www.courier-mta.org/maildrop/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gcc-c++
 BuildRequires:	gdbm-devel
 BuildRequires:	libstdc++-devel
@@ -69,8 +71,11 @@ E-mail.
 %setup -q
 
 %build
-cp -f /usr/share/automake/config.sub .
-%configure2_13 \
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+%configure \
 	--with-devel \
 	--enable-userdb \
 	--enable-maildirquota \
@@ -88,6 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 	MAILDROPUID="" \
 	MAILDROPGID=""
 
+mv $RPM_BUILD_ROOT%{_datadir}/maildrop/html .
+
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/makeuserdb*
@@ -101,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc maildir/README.maildirquota.txt AUTHORS README README.postfix
-%doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL
+%doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL html
 %attr(6755,root,mail) %{_bindir}/maildrop
 %attr(6755,root,mail) %{_bindir}/lockmail
 %attr(755,root,root) %{_bindir}/makedat
@@ -109,6 +116,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/reformail
 %attr(755,root,root) %{_bindir}/makemime
 %attr(755,root,root) %{_bindir}/reformime
+%attr(755,root,root) %{_bindir}/deliverquota
+%attr(755,root,root) %{_bindir}/mailbot
+%attr(755,root,root) %{_bindir}/maildirmake
 %dir %{_datadir}/maildrop
 %dir %{_datadir}/maildrop/scripts
 %attr(755,root,root) %{_datadir}/maildrop/scripts/*
