@@ -2,7 +2,7 @@ Summary:	maildrop mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	1.2.2
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Mail
 Group(de):	Applikationen/Post
@@ -62,7 +62,6 @@ which use or process E-mail messages.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#install -d $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -71,6 +70,11 @@ rm -rf $RPM_BUILD_ROOT
 
 gzip -9nf maildir/README.maildirquota.txt AUTHORS README README.postfix \
 	NEWS UPGRADE ChangeLog maildroptips.txt INSTALL
+
+rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/pw2userdb.8
+rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/vchkpw2userdb.8
+echo ".so makeuserdb.8" > $RPM_BUILD_ROOT/%{_mandir}/man8/pw2userdb.8
+echo ".so makeuserdb.8" > $RPM_BUILD_ROOT/%{_mandir}/man8/vchkpw2userdb.8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
