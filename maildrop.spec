@@ -13,6 +13,7 @@ BuildRequires:	automake
 BuildRequires:	gcc-c++
 BuildRequires:	gdbm-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
