@@ -90,9 +90,6 @@ rm -rf $RPM_BUILD_ROOT
 	MAILDROPUID="" \
 	MAILDROPGID=""
 
-gzip -9nf maildir/README.maildirquota.txt AUTHORS README README.postfix \
-	NEWS UPGRADE ChangeLog maildroptips.txt INSTALL
-
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/makeuserdb*
@@ -104,7 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc maildir/*.gz *.gz
+%doc maildir/README.maildirquota.txt AUTHORS README README.postfix
+%doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL
 
 %attr(6755,root,mail) %{_bindir}/maildrop
 %attr(6755,root,mail) %{_bindir}/dotlock
