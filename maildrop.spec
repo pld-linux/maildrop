@@ -49,7 +49,7 @@ which use or process E-mail messages.
 
 %prep
 %setup -q
-%configure \
+%configure2_13 \
 	--with-devel \
 	--enable-userdb \
 	--enable-maildirquota \
