@@ -2,7 +2,7 @@ Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	1.6.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
@@ -14,11 +14,11 @@ BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Maildrop is a combination mail filter/mail delivery agent. Maildrop
-reads the message to be delivered to your mailbox, optionally reads
-instructions from a file how filter incoming mail, then based on these
-instructions may deliver mail to an alternate mailbox, or forward it,
-instead of dropping the message into your mailbox.
+Maildrop is a combination of a mail filter/mail delivery agent.
+Maildrop reads the message to be delivered to your mailbox, optionally
+reads instructions from a file how to filter incoming mail, then based
+on these instructions may deliver mail to an alternate mailbox, or
+forward it, instead of dropping the message into your mailbox.
 
 Maildrop uses a structured, real, meta-programming language in order
 to define filtering instructions. Its basic features are fast and
@@ -76,7 +76,7 @@ E-mail.
 	--enable-syslog=1 \
 	--enable-trusted-users='root mail daemon postmaster exim qmaild mmdf' \
 	--enable-restrict-trusted=0 \
-	--enable-sendmail=/usr/lib/sendmail
+	--enable-sendmail=%{_prefix}/lib/sendmail
 %{__make}
 
 %install
