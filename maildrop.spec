@@ -1,8 +1,8 @@
 Summary:	maildrop mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	1.3.4
-Release:	2
+Version:	1.3.5
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Group(de):	Applikationen/Post
@@ -10,9 +10,9 @@ Group(pl):	Aplikacje/Poczta
 Group(pt):	Aplicações/Correio Eletrônico
 Source0:	ftp://ftp1.sourceforge.net/pub/sourceforge/courier/%{name}-%{version}.tar.gz
 URL:		http://www.flounder.net/~mrsam/maildrop/
-Requires: courier-imap-userdb
-Requires: courier-imap-maildirmake
-Requires: courier-imap-deliverquota
+Requires:	courier-imap-userdb
+Requires:	courier-imap-maildirmake
+Requires:	courier-imap-deliverquota
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
