@@ -27,8 +27,6 @@ CPU-demanding, features can be used to build very sophisticated mail
 filters. Maildrop deployments have been reported at sites that support
 as many as 30,000 mailboxes.
 
-Maildrop mailing list -- http://maildropl.listbot.com/
-
 This version is compiled with support for GDBM database files, maildir
 enhancements (folders+quotas), and userdb.
 
@@ -45,8 +43,6 @@ szybkie i wydajne. Na serwerach z niewielkim obci±¿eniem mo¿na u¿ywaæ
 bardziej zaawansowanych, obci±¿aj±cych procesor mo¿liwo¶ci do
 stworzenia przemy¶lanych filtrów pocztowych. Znane s± przypadki
 u¿ywania Maildropa na serwerach z 30 000 kontami pocztowymi.
-
-Lista dyskusyjna Maildropa: http://maildropl.listbox.com/ .
 
 Ta wersja jest skompilowana z obs³ug± plików baz GDBM, rozszerzeniami
 maildir (foldery i quoty) oraz userdb.
