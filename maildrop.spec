@@ -1,13 +1,16 @@
 Summary:	maildrop mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	1.4.0
+Version:	1.6.0
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.gz
 # Source0-md5:	7a2ad503be8d0bb6bbeb4a0422f4eb45
 URL:		http://www.flounder.net/~mrsam/maildrop/
+BuildRequires:	gcc-c++
+BuildRequires:	gdbm-devel
+BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -93,6 +96,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/makeuserdb*
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/userdb*
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/*pw2userdb*
+rm -f $RPM_BUILD_ROOT%{_mandir}/man5/maildir*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -101,9 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc maildir/README.maildirquota.txt AUTHORS README README.postfix
 %doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL
-
 %attr(6755,root,mail) %{_bindir}/maildrop
-%attr(6755,root,mail) %{_bindir}/dotlock
+%attr(6755,root,mail) %{_bindir}/lockmail
 %attr(755,root,root) %{_bindir}/makedat
 %attr(755,root,root) %{_bindir}/makedatprog
 %attr(755,root,root) %{_bindir}/reformail
@@ -112,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/maildrop
 %dir %{_datadir}/maildrop/scripts
 %attr(755,root,root) %{_datadir}/maildrop/scripts/*
-%{_mandir}/man[158]/*
+%{_mandir}/man[1578]/*
 
 %files devel
 %defattr(644,root,root,755)
