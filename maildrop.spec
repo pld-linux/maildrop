@@ -34,8 +34,28 @@ Maildrop mailing list -- http://maildropl.listbot.com/
 This version is compiled with support for GDBM database files, maildir
 enhancements (folders+quotas), and userdb.
 
+%description -l pl
+Maildrop to po³±czenie filtra i dostarczyciela poczty. Czyta
+wiadomo¶æ, która ma byæ dostarczona do skrzynki, opcjonalnie czyta
+instrukcje z pliku jak filtrowaæ przychodz±c± pocztê, na podstawie
+tych instrukcji mo¿e dostarczaæ pocztê do innej skrzynki, lub
+forwardowaæ zamiast wrzucaæ do podstawowej skrzynki.
+
+Maildrop u¿ywa strukturalnego, rzeczywistego meta-jêzyka programowania
+do definiowania instrukcji filtrowania. Podstawowe mo¿liwo¶ci s±
+szybkie i wydajne. Na serwerach z niewielkim obci±¿eniem mo¿na u¿ywaæ
+bardziej zaawansowanych, obci±¿aj±cych procesor mo¿liwo¶ci do
+stworzenia przemy¶lanych filtrów pocztowych. Znane s± przypadki
+u¿ywania Maildropa na serwerach z 30 000 kontami pocztowymi.
+
+Lista dyskusyjna Maildropa: http://maildropl.listbox.com/ .
+
+Ta wersja jest skompilowana z obs³ug± plików baz GDBM, rozszerzeniami
+maildir (foldery i quoty) oraz userdb.
+
 %package devel
-Summary:	development tools for handling E-mail messages
+Summary:	Development tools for handling E-mail messages
+Summary(pl):	Narzêdzia programisty do obs³ugi wiadomo¶ci E-mail
 Group:		Applications/Mail
 Group(de):	Applikationen/Post
 Group(pl):	Aplikacje/Poczta
@@ -48,6 +68,11 @@ E-mail messages.
 
 Install the maildrop-devel package if you want to develop applications
 which use or process E-mail messages.
+
+%description devel -l pl
+Ten pakiet zawiera biblioteki i pliki nag³ówkowe przydatne przy
+tworzeniu oprogramowania pracuj±cego z lub przetwarzaj±cego wiadomo¶ci
+E-mail.
 
 %prep
 %setup -q
@@ -74,11 +99,11 @@ rm -rf $RPM_BUILD_ROOT
 gzip -9nf maildir/README.maildirquota.txt AUTHORS README README.postfix \
 	NEWS UPGRADE ChangeLog maildroptips.txt INSTALL
 
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/maildirmake.1
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/deliverquota*
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/makeuserdb*
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/userdb*
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/*pw2userdb*
+rm -f $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
+rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
+rm -f $RPM_BUILD_ROOT%{_mandir}/man8/makeuserdb*
+rm -f $RPM_BUILD_ROOT%{_mandir}/man8/userdb*
+rm -f $RPM_BUILD_ROOT%{_mandir}/man8/*pw2userdb*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -87,8 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc maildir/*.gz *.gz
 
-%attr(6555,root,mail) %{_bindir}/maildrop
-%attr(6555,root,mail) %{_bindir}/dotlock
+%attr(6755,root,mail) %{_bindir}/maildrop
+%attr(6755,root,mail) %{_bindir}/dotlock
 %attr(755,root,root) %{_bindir}/makedat
 %attr(755,root,root) %{_bindir}/makedatprog
 %attr(755,root,root) %{_bindir}/reformail
