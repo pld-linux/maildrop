@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.gz
+# Source0-md5:	7a2ad503be8d0bb6bbeb4a0422f4eb45
 URL:		http://www.flounder.net/~mrsam/maildrop/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
