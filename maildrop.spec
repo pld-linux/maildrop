@@ -1,16 +1,20 @@
+#
+# TODO:
+#	- bump rel. to 1 when courier-* will be ready
+#
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	1.7.0
-Release:	2
+Version:	1.8.0
+Release:	0.5
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	fa2dbbb84795e459db36ea0013f6f214
+# Source0-md5:	caf59c78d6689b4cfba98d979af63407
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gdbm-devel
+BuildRequires:	db-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -76,13 +80,13 @@ E-mail.
 %{__autoconf}
 %{__automake}
 %configure \
+	--with-db=db \
 	--with-devel \
-	--enable-userdb \
 	--enable-maildirquota \
 	--enable-syslog=1 \
 	--enable-trusted-users='root mail daemon postmaster exim qmaild mmdf' \
 	--enable-restrict-trusted=0 \
-	--enable-sendmail=/usr/lib/sendmail
+	--enable-sendmail=%{_sbindir}/sendmail
 %{__make}
 
 %install
@@ -95,10 +99,6 @@ rm -rf $RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_datadir}/maildrop/html .
 
-# courier-imap-userdb
-rm -f $RPM_BUILD_ROOT%{_mandir}/man8/makeuserdb*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man8/userdb*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man8/*pw2userdb*
 # courier-imap-maildirmake
 rm -f $RPM_BUILD_ROOT%{_bindir}/maildirmake
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
@@ -109,7 +109,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 
 # small pld readme file
 cat > README.pld <<EOF
-To get \"makeusedb\" please install courier-imap-userdb
+To get \"userdb\" please install courier-imap-userdb
 
 To get \"deliverquota\" please install courier-imap-deliverquota
 
@@ -133,16 +133,12 @@ fi
 %doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL html README.pld
 %attr(6755,root,mail) %{_bindir}/maildrop
 %attr(6755,root,mail) %{_bindir}/lockmail
-%attr(755,root,root) %{_bindir}/makedat
-%attr(755,root,root) %{_bindir}/makedatprog
 %attr(755,root,root) %{_bindir}/reformail
 %attr(755,root,root) %{_bindir}/makemime
 %attr(755,root,root) %{_bindir}/reformime
 %attr(755,root,root) %{_bindir}/mailbot
 %dir %{_datadir}/maildrop
-%dir %{_datadir}/maildrop/scripts
-%attr(755,root,root) %{_datadir}/maildrop/scripts/*
-%{_mandir}/man[1578]/*
+%{_mandir}/man[17]/*
 
 %files devel
 %defattr(644,root,root,755)
