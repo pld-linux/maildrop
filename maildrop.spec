@@ -1,4 +1,4 @@
-Summary:	maildrop mail filter/mail delivery agent
+Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	1.6.2
