@@ -5,8 +5,8 @@ Version:	1.6.0
 Release:	1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.gz
-# Source0-md5:	7a2ad503be8d0bb6bbeb4a0422f4eb45
+Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
+# Source0-md5:	1e50a41d57750e83ca077558c0fd66b3
 URL:		http://www.flounder.net/~mrsam/maildrop/
 BuildRequires:	gcc-c++
 BuildRequires:	gdbm-devel
