@@ -76,7 +76,7 @@ E-mail.
 	--enable-syslog=1 \
 	--enable-trusted-users='root mail daemon postmaster exim qmaild mmdf' \
 	--enable-restrict-trusted=0 \
-	--enable-sendmail=%{_prefix}/lib/sendmail
+	--enable-sendmail=/usr/lib/sendmail
 %{__make}
 
 %install
