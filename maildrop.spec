@@ -10,7 +10,6 @@ Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gcc-c++
 BuildRequires:	gdbm-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
