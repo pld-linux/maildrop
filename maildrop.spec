@@ -5,7 +5,7 @@ Version:	1.4.0
 Release:	1
 License:	GPL
 Group:		Applications/Mail
-Source0:	ftp://ftp1.sourceforge.net/pub/sourceforge/courier/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.gz
 URL:		http://www.flounder.net/~mrsam/maildrop/
 Requires:	courier-imap-userdb
 Requires:	courier-imap-maildirmake
