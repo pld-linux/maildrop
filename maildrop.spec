@@ -5,20 +5,6 @@ Version:	1.3.7
 Release:	1
 License:	GPL
 Group:		Applications/Mail
-Group(cs):	Aplikace/Po¹ta
-Group(da):	Programmer/Post
-Group(de):	Applikationen/Post
-Group(es):	Aplicaciones/Correo Electrónico
-Group(fr):	Applications/Courrier
-Group(is):	Forrit/Póst
-Group(it):	Applicazioni/Posta
-Group(no):	Applikasjoner/Epost
-Group(pl):	Aplikacje/Poczta
-Group(pt):	Aplicações/Correio Eletrônico
-Group(ru):	ğÒÉÌÏÖÅÎÉÑ/üÌÅËÔÒÏÎÎÁÑ ĞÏŞÔÁ
-Group(sl):	Programi/Po¹tna
-Group(sv):	Tillämpningar/Post
-Group(uk):	ğÒÉËÌÁÄÎ¦ ğÒÏÇÒÁÍÉ/ğÏÛÔÁ
 Source0:	ftp://ftp1.sourceforge.net/pub/sourceforge/courier/%{name}-%{version}.tar.gz
 URL:		http://www.flounder.net/~mrsam/maildrop/
 Requires:	courier-imap-userdb
@@ -68,20 +54,6 @@ maildir (foldery i quoty) oraz userdb.
 Summary:	Development tools for handling E-mail messages
 Summary(pl):	Narzêdzia programisty do obs³ugi wiadomo¶ci E-mail
 Group:		Applications/Mail
-Group(cs):	Aplikace/Po¹ta
-Group(da):	Programmer/Post
-Group(de):	Applikationen/Post
-Group(es):	Aplicaciones/Correo Electrónico
-Group(fr):	Applications/Courrier
-Group(is):	Forrit/Póst
-Group(it):	Applicazioni/Posta
-Group(no):	Applikasjoner/Epost
-Group(pl):	Aplikacje/Poczta
-Group(pt):	Aplicações/Correio Eletrônico
-Group(ru):	ğÒÉÌÏÖÅÎÉÑ/üÌÅËÔÒÏÎÎÁÑ ĞÏŞÔÁ
-Group(sl):	Programi/Po¹tna
-Group(sv):	Tillämpningar/Post
-Group(uk):	ğÒÉËÌÁÄÎ¦ ğÒÏÇÒÁÍÉ/ğÏÛÔÁ
 
 %description devel
 The maildrop-devel package contains the libraries and header files
