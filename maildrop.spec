@@ -7,9 +7,6 @@ License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.gz
 URL:		http://www.flounder.net/~mrsam/maildrop/
-Requires:	courier-imap-userdb
-Requires:	courier-imap-maildirmake
-Requires:	courier-imap-deliverquota
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
