@@ -2,7 +2,7 @@ Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	1.6.3
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
@@ -69,6 +69,7 @@ E-mail.
 %setup -q
 
 %build
+cp -f /usr/share/automake/config.sub .
 %configure2_13 \
 	--with-devel \
 	--enable-userdb \
