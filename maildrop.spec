@@ -1,7 +1,7 @@
 Summary:	maildrop mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	1.3.5
+Version:	1.3.6
 Release:	1
 License:	GPL
 Group:		Applications/Mail
