@@ -2,12 +2,13 @@ Summary:	maildrop mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	1.2.2
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/Mail
 Group(de):	Applikationen/Post
 Group(pl):	Aplikacje/Poczta
 Group(pt):	Aplicações/Correio Eletrônico
+Obsoletes:	qmail-maildirmake
 Source0:	http://www.flounder.net/~mrsam/maildrop/%{name}-%{version}.tar.gz
 URL:		http://www.flounder.net/~mrsam/maildrop/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
