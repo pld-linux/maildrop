@@ -1,16 +1,13 @@
-#
-# TODO:
-#	- bump rel. to 1 when courier-* will be ready
-#
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	1.8.0
-Release:	0.5
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
 # Source0-md5:	caf59c78d6689b4cfba98d979af63407
+Patch0:		%{name}-db.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -73,12 +70,21 @@ E-mail.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
+
+cd maildrop
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+cd ..
+
 %configure \
 	--with-db=db \
 	--with-devel \
@@ -109,7 +115,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 
 # small pld readme file
 cat > README.pld <<EOF
-To get \"userdb\" please install courier-imap-userdb
+To get \"userdb\" please install courier-authlib-userdb
 
 To get \"deliverquota\" please install courier-imap-deliverquota
 
