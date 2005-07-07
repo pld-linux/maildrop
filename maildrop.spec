@@ -1,12 +1,12 @@
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	1.8.0
+Version:	1.8.1
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	caf59c78d6689b4cfba98d979af63407
+# Source0-md5:	da7b312da069f8bacf7388804e0d7cc3
 Patch0:		%{name}-db.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf
@@ -30,8 +30,7 @@ CPU-demanding, features can be used to build very sophisticated mail
 filters. Maildrop deployments have been reported at sites that support
 as many as 30,000 mailboxes.
 
-This version is compiled with support for GDBM database files, maildir
-enhancements (folders+quotas), and userdb.
+This version is compiled with support for DB database files.
 
 %description -l pl
 Maildrop to po³±czenie filtra i dostarczyciela poczty. Czyta
@@ -47,8 +46,7 @@ bardziej zaawansowanych, obci±¿aj±cych procesor mo¿liwo¶ci do
 stworzenia przemy¶lanych filtrów pocztowych. Znane s± przypadki
 u¿ywania Maildropa na serwerach z 30 000 kontami pocztowymi.
 
-Ta wersja jest skompilowana z obs³ug± plików baz GDBM, rozszerzeniami
-maildir (foldery i quoty) oraz userdb.
+Ta wersja jest skompilowana z obs³ug± plików baz DB.
 
 %package devel
 Summary:	Development tools for handling E-mail messages
