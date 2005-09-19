@@ -1,3 +1,5 @@
+# TODO
+# - produced binary is inconsistent by depending what's installed on system (fam/courier-authlib, probably others)
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
