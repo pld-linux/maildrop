@@ -115,22 +115,19 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 
 # small pld readme file
 cat > README.pld <<EOF
-To get \"userdb\" please install courier-authlib-userdb
-
-To get \"deliverquota\" please install courier-imap-deliverquota
-
-To get \"maildirmake\" please install courier-imap-maildirmake
-
+To get "userdb" please install courier-authlib-userdb
+To get "deliverquota" please install courier-imap-deliverquota
+To get "maildirmake" please install courier-imap-maildirmake
 EOF
-	
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ "$1" = "1" ]; then
-echo
-echo Please read README.pld file
-echo
+	echo
+	echo Please read README.pld file
+	echo
 fi
 
 %files
