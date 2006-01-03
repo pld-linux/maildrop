@@ -1,22 +1,27 @@
-# TODO
-# - produced binary is inconsistent by depending what's installed on system (fam/courier-authlib, probably others)
+# Conditional build:
+%bcond_without authlib	# disable courier-authlib
+#
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	1.8.1
-Release:	1
+Release:	1.10
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
 # Source0-md5:	da7b312da069f8bacf7388804e0d7cc3
 Patch0:		%{name}-db.patch
 URL:		http://www.courier-mta.org/maildrop/
+%{?with_authlib:BuildRequires:	courier-authlib-devel}
+BuildRequires:	fam-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	db-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_sysconfdir		/etc/maildrop
 
 %description
 Maildrop is a combination of a mail filter/mail delivery agent.
@@ -87,22 +92,29 @@ cd ..
 
 %configure \
 	--with-db=db \
+	--with-etcdir=%{_sysconfdir} \
 	--with-devel \
 	--enable-maildirquota \
 	--enable-syslog=1 \
 	--enable-trusted-users='root mail daemon postmaster exim qmaild mmdf' \
 	--enable-restrict-trusted=0 \
+	--enable-maildrop-gid=maildrop \
+	--disable-userdb  \
+	%{!?with_authlib:--disable-authlib} \
 	--enable-sendmail=%{_sbindir}/sendmail
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_sysconfdir}
 
-%{__make} install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	MAILDROPUID="" \
 	MAILDROPGID=""
 
+rm -rf html
 mv $RPM_BUILD_ROOT%{_datadir}/maildrop/html .
 
 # courier-imap-maildirmake
@@ -114,7 +126,7 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/deliverquota
 rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 
 # small pld readme file
-cat > README.pld <<EOF
+cat > README.pld <<'EOF'
 To get "userdb" please install courier-authlib-userdb
 To get "deliverquota" please install courier-imap-deliverquota
 To get "maildirmake" please install courier-imap-maildirmake
@@ -133,7 +145,9 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc maildir/README.maildirquota.txt AUTHORS README README.postfix
-%doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL html README.pld
+%doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL README.pld
+%doc html/
+%dir %{_sysconfdir}
 %attr(6755,root,mail) %{_bindir}/maildrop
 %attr(6755,root,mail) %{_bindir}/lockmail
 %attr(755,root,root) %{_bindir}/reformail
