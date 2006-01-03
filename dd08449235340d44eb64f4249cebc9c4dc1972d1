@@ -1,0 +1,6 @@
+- release: 2
+- removed obsoletes: qmail-maildirmake
+- added requires: courier-imap-{maildirmake,deliverquota,userdb}
+- removed common files with courier-imap-{maildirmake,deliverquota,userdb}
+- %configure2_13 moved do %build section
+- added 'exim' user to trusted users in %configure2_13
