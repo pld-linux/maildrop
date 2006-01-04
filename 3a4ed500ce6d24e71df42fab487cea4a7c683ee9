@@ -1,0 +1,3 @@
+- removed symlinks in man-pages (it don't work if man-pages are gzipped)
+- release 4
+  co z konfliktem plikow maildirmake i maildirmake.1.gz z plikami z qmaila ?
