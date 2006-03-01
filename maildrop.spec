@@ -5,7 +5,7 @@ Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	2.0.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
@@ -14,7 +14,7 @@ Patch0:		%{name}-db.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_authlib:BuildRequires:	courier-authlib-devel}
+%{?with_authlib:BuildRequires:	courier-authlib-devel >= 0.58-4}
 BuildRequires:	db-devel
 BuildRequires:	fam-devel
 BuildRequires:	libstdc++-devel
