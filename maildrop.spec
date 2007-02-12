@@ -2,7 +2,7 @@
 %bcond_without authlib	# disable courier-authlib
 #
 Summary:	maildrop - mail filter/mail delivery agent
-Summary(pl):	maildrop - filtr pocztowy/dostarczyciel poczty
+Summary(pl.UTF-8):   maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	2.0.2
 Release:	2
@@ -40,25 +40,25 @@ as many as 30,000 mailboxes.
 
 This version is compiled with support for DB database files.
 
-%description -l pl
-Maildrop to po³±czenie filtra i dostarczyciela poczty. Czyta
-wiadomo¶æ, która ma byæ dostarczona do skrzynki, opcjonalnie czyta
-instrukcje z pliku jak filtrowaæ przychodz±c± pocztê, na podstawie
-tych instrukcji mo¿e dostarczaæ pocztê do innej skrzynki, lub
-forwardowaæ zamiast wrzucaæ do podstawowej skrzynki.
+%description -l pl.UTF-8
+Maildrop to poÅ‚Ä…czenie filtra i dostarczyciela poczty. Czyta
+wiadomoÅ›Ä‡, ktÃ³ra ma byÄ‡ dostarczona do skrzynki, opcjonalnie czyta
+instrukcje z pliku jak filtrowaÄ‡ przychodzÄ…cÄ… pocztÄ™, na podstawie
+tych instrukcji moÅ¼e dostarczaÄ‡ pocztÄ™ do innej skrzynki, lub
+forwardowaÄ‡ zamiast wrzucaÄ‡ do podstawowej skrzynki.
 
-Maildrop u¿ywa strukturalnego, rzeczywistego meta-jêzyka programowania
-do definiowania instrukcji filtrowania. Podstawowe mo¿liwo¶ci s±
-szybkie i wydajne. Na serwerach z niewielkim obci±¿eniem mo¿na u¿ywaæ
-bardziej zaawansowanych, obci±¿aj±cych procesor mo¿liwo¶ci do
-stworzenia przemy¶lanych filtrów pocztowych. Znane s± przypadki
-u¿ywania Maildropa na serwerach z 30 000 kontami pocztowymi.
+Maildrop uÅ¼ywa strukturalnego, rzeczywistego meta-jÄ™zyka programowania
+do definiowania instrukcji filtrowania. Podstawowe moÅ¼liwoÅ›ci sÄ…
+szybkie i wydajne. Na serwerach z niewielkim obciÄ…Å¼eniem moÅ¼na uÅ¼ywaÄ‡
+bardziej zaawansowanych, obciÄ…Å¼ajÄ…cych procesor moÅ¼liwoÅ›ci do
+stworzenia przemyÅ›lanych filtrÃ³w pocztowych. Znane sÄ… przypadki
+uÅ¼ywania Maildropa na serwerach z 30 000 kontami pocztowymi.
 
-Ta wersja jest skompilowana z obs³ug± plików baz DB.
+Ta wersja jest skompilowana z obsÅ‚ugÄ… plikÃ³w baz DB.
 
 %package devel
 Summary:	Development tools for handling E-mail messages
-Summary(pl):	Narzêdzia programisty do obs³ugi wiadomo¶ci E-mail
+Summary(pl.UTF-8):   NarzÄ™dzia programisty do obsÅ‚ugi wiadomoÅ›ci E-mail
 Group:		Applications/Mail
 
 %description devel
@@ -69,9 +69,9 @@ E-mail messages.
 Install the maildrop-devel package if you want to develop applications
 which use or process E-mail messages.
 
-%description devel -l pl
-Ten pakiet zawiera biblioteki i pliki nag³ówkowe przydatne przy
-tworzeniu oprogramowania pracuj±cego z lub przetwarzaj±cego wiadomo¶ci
+%description devel -l pl.UTF-8
+Ten pakiet zawiera biblioteki i pliki nagÅ‚Ã³wkowe przydatne przy
+tworzeniu oprogramowania pracujÄ…cego z lub przetwarzajÄ…cego wiadomoÅ›ci
 E-mail.
 
 %prep
