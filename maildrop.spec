@@ -2,7 +2,7 @@
 %bcond_without authlib	# disable courier-authlib
 #
 Summary:	maildrop - mail filter/mail delivery agent
-Summary(pl.UTF-8):   maildrop - filtr pocztowy/dostarczyciel poczty
+Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	2.0.2
 Release:	2
@@ -58,7 +58,7 @@ Ta wersja jest skompilowana z obsługą plików baz DB.
 
 %package devel
 Summary:	Development tools for handling E-mail messages
-Summary(pl.UTF-8):   Narzędzia programisty do obsługi wiadomości E-mail
+Summary(pl.UTF-8):	Narzędzia programisty do obsługi wiadomości E-mail
 Group:		Applications/Mail
 
 %description devel
