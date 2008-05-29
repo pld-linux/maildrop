@@ -1,15 +1,23 @@
+#
+# TODO:
+#   - unpackaged files which already exist in courier.spec and
+#     courier-authlib.spec, should they be packaged here too?
+#     warning: Installed (but unpackaged) file(s) found:
+#        /usr/bin/makedat
+#        /usr/bin/makedatprog
+#
 # Conditional build:
 %bcond_without authlib	# disable courier-authlib
 #
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	2.0.2
-Release:	2
+Version:	2.0.4
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	69c7cb0c93669c0831eb3ee304da8eac
+# Source0-md5:	6a760efe429716ab0be67a1ddc554ed7
 Patch0:		%{name}-db.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf
@@ -79,17 +87,15 @@ E-mail.
 %patch0 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__automake}
 
-cd maildrop
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-cd ..
+for d in . numlib liblock unicode rfc822 rfc2045 gdbmobj bdbobj makedat maildir maildrop; do
+cd $d
+        %{__libtoolize}
+	%{__aclocal}
+        %{__autoconf}
+        %{__automake}
+cd -
+done
 
 %configure \
 	--with-db=db \
