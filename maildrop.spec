@@ -90,10 +90,10 @@ E-mail.
 
 for d in . numlib liblock unicode rfc822 rfc2045 gdbmobj bdbobj makedat maildir maildrop; do
 cd $d
-        %{__libtoolize}
+	%{__libtoolize}
 	%{__aclocal}
-        %{__autoconf}
-        %{__automake}
+	%{__autoconf}
+	%{__automake}
 cd -
 done
 
