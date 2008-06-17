@@ -165,6 +165,9 @@ if [ "$1" = "1" ]; then
 	echo
 fi
 
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog COPYING INSTALL README README.postfix NEWS UPGRADE
