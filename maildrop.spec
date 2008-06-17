@@ -18,7 +18,6 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 %{?with_authlib:BuildRequires:	courier-authlib-devel >= 0.58-4}
 BuildRequires:	db-devel
-BuildRequires:	fam-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	pcre-devel
