@@ -1,10 +1,4 @@
-#
-# TODO:
-#   - unpackaged files which already exist in courier.spec and
-#     courier-authlib.spec, should they be packaged here too?
-#     warning: Installed (but unpackaged) file(s) found:
-#        /usr/bin/makedat
-#        /usr/bin/makedatprog
+# TODO: use %%banner instead of ugly echoes
 #
 # Conditional build:
 %bcond_without authlib	# disable courier-authlib
@@ -14,13 +8,13 @@ Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	2.0.4
 Release:	1
-License:	GPL
+License:	GPL v2 + OpenSSL exception
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
 # Source0-md5:	6a760efe429716ab0be67a1ddc554ed7
 Patch0:		%{name}-db.patch
 URL:		http://www.courier-mta.org/maildrop/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 %{?with_authlib:BuildRequires:	courier-authlib-devel >= 0.58-4}
 BuildRequires:	db-devel
@@ -64,23 +58,42 @@ używania Maildropa na serwerach z 30 000 kontami pocztowymi.
 
 Ta wersja jest skompilowana z obsługą plików baz DB.
 
+%package libs
+Summary:	Libraries for handling e-mail messages
+Summary(pl.UTF-8):	Biblioteki do obsługi wiadomości e-mail
+Group:		Libraries
+
+%description libs
+Libraries for handling e-mail messages.
+
+%description libs -l pl.UTF-8
+Biblioteki do obsługi wiadomości e-mail.
+
 %package devel
-Summary:	Development tools for handling E-mail messages
-Summary(pl.UTF-8):	Narzędzia programisty do obsługi wiadomości E-mail
-Group:		Applications/Mail
+Summary:	Header files for maildrop libraries
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek maildrop
+Group:		Development/Libraries
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
-The maildrop-devel package contains the libraries and header files
-that can be useful in developing software that works with or processes
-E-mail messages.
-
-Install the maildrop-devel package if you want to develop applications
-which use or process E-mail messages.
+This package contains the header files that can be useful in
+developing software that works with or processes E-mail messages.
 
 %description devel -l pl.UTF-8
-Ten pakiet zawiera biblioteki i pliki nagłówkowe przydatne przy
-tworzeniu oprogramowania pracującego z lub przetwarzającego wiadomości
-E-mail.
+Ten pakiet zawiera pliki nagłówkowe przydatne przy tworzeniu
+oprogramowania pracującego z lub przetwarzającego wiadomości E-mail.
+
+%package static
+Summary:	Static maildrop libraries
+Summary(pl.UTF-8):	Statyczne biblioteki maildrop
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static maildrop libraries.
+
+%description static -l pl.UTF-8
+Statyczne biblioteki maildrop.
 
 %prep
 %setup -q
@@ -124,13 +137,16 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}
 rm -rf html
 mv $RPM_BUILD_ROOT%{_datadir}/maildrop/html .
 
+# courier-authlib
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/makedat
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/makedatprog
 # courier-imap-maildirmake
-rm -f $RPM_BUILD_ROOT%{_bindir}/maildirmake
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
-rm -f $RPM_BUILD_ROOT%{_mandir}/man5/maildir*
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/maildirmake
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man5/maildir*
 # courier-imap-deliverquota
-rm -f $RPM_BUILD_ROOT%{_bindir}/deliverquota
-rm -f $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/deliverquota
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 
 # small pld readme file
 cat > README.pld <<'EOF'
@@ -151,21 +167,47 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc maildir/README.maildirquota.txt AUTHORS README README.postfix
-%doc NEWS UPGRADE ChangeLog maildroptips.txt INSTALL README.pld
-%doc html/
-%dir %{_sysconfdir}
+%doc AUTHORS ChangeLog COPYING INSTALL README README.postfix NEWS UPGRADE
+%doc maildroptips.txt maildir/README.maildirquota.txt html/ README.pld
 %attr(6755,root,mail) %{_bindir}/maildrop
 %attr(6755,root,mail) %{_bindir}/lockmail
 %attr(755,root,root) %{_bindir}/reformail
 %attr(755,root,root) %{_bindir}/makemime
 %attr(755,root,root) %{_bindir}/reformime
 %attr(755,root,root) %{_bindir}/mailbot
+%dir %{_sysconfdir}
 %dir %{_datadir}/maildrop
-%{_mandir}/man[17]/*
+%{_mandir}/man1/lockmail.1*
+%{_mandir}/man1/mailbot.1*
+%{_mandir}/man1/maildrop.1*
+%{_mandir}/man1/makemime.1*
+%{_mandir}/man1/reformail.1*
+%{_mandir}/man1/reformime.1*
+%{_mandir}/man7/maildirquota.7*
+%{_mandir}/man7/maildropex.7*
+%{_mandir}/man7/maildropfilter.7*
+%{_mandir}/man7/maildropgdbm.7*
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/librfc2045.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/librfc2045.so.0
+%attr(755,root,root) %{_libdir}/librfc822.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/librfc822.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/*
-%{_libdir}/*
-%{_mandir}/man3/*
+%attr(755,root,root) %{_libdir}/librfc2045.so
+%attr(755,root,root) %{_libdir}/librfc822.so
+%{_libdir}/librfc2045.la
+%{_libdir}/librfc822.la
+%{_includedir}/rfc2045.h
+%{_includedir}/rfc2047.h
+%{_includedir}/rfc822.h
+%{_mandir}/man3/rfc2045.3*
+%{_mandir}/man3/rfc822.3*
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/librfc2045.a
+%{_libdir}/librfc822.a
