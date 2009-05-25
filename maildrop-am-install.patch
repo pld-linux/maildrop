@@ -1,0 +1,11 @@
+--- maildrop-2.0.4/Makefile.am~	2009-05-24 19:13:52.000000000 +0300
++++ maildrop-2.0.4/Makefile.am	2009-05-25 01:19:13.482317443 +0300
+@@ -30,7 +30,7 @@
+ if INSTALL_DELIVERQUOTA
+ 
+ DELIVERQUOTAHTML=$(DELIVERQUOTAHTMLSOURCE)
+-DELIVERQUOTAMAN=maildirquota.7 deliverquota.8
++DELIVERQUOTAMAN=
+ 
+ #  Install deliverquota into libdir/bin
+ #

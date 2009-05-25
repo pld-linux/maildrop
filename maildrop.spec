@@ -7,12 +7,13 @@ Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	2.0.4
-Release:	2
+Release:	3
 License:	GPL v2 + OpenSSL exception
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
 # Source0-md5:	6a760efe429716ab0be67a1ddc554ed7
 Patch0:		%{name}-db.patch
+Patch1:		%{name}-am-install.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -97,9 +98,12 @@ Statyczne biblioteki maildrop.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+
+# confuses libtoolize, old contents not overwritten somewhy
+find -name 'aclocal.m4' | xargs rm
 
 %build
-
 for d in . numlib liblock unicode rfc822 rfc2045 gdbmobj bdbobj makedat maildir maildrop; do
 cd $d
 	%{__libtoolize}
@@ -109,23 +113,21 @@ cd $d
 cd -
 done
 # Change Makefile.am files and force recreate Makefile.in's.
-OLDDIR=`pwd`
-find -type f -a \( -name configure.in -o -name configure.ac \) | while read FILE; do
-	cd "`dirname "$FILE"`"
+top=$(pwd)
+find -type f -a '(' -name configure.in -o -name configure.ac ')' | while read a; do
+	cd "$top/$(dirname "$a")"
 
 	if [ -f Makefile.am ]; then
 		sed -i -e '/_[L]DFLAGS=-static/d' Makefile.am
 	fi
 
 	%{__libtoolize}
-        %{__aclocal}
+	%{__aclocal}
 	%{__autoconf}
 	if grep -q AC_CONFIG_HEADER configure.in; then
 		%{__autoheader}
 	fi
 	%{__automake}
-
-	cd "$OLDDIR"
 done
 
 %configure \
@@ -139,9 +141,9 @@ done
 	--enable-maildrop-gid=maildrop \
 	--disable-userdb  \
 	%{!?with_authlib:--disable-authlib} \
-	--enable-sendmail=%{_sbindir}/sendmail
+	--enable-sendmail=/usr/lib/sendmail
 
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
