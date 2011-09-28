@@ -25,6 +25,7 @@ BuildRequires:	pcre-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir		/etc/maildrop
+%define     skip_post_check_so	librfc2045.so.0.0.0 librfc822.so.0.0.0
 
 %description
 Maildrop is a combination of a mail filter/mail delivery agent.
