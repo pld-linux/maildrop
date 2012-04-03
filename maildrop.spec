@@ -10,7 +10,7 @@ Version:	2.5.5
 Release:	1
 License:	GPL v2 + OpenSSL exception
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/courier/%{name}-%{version}.tar.bz2
 # Source0-md5:	5d71455ab26096ecf4f624fbee0320cb
 Patch0:		%{name}-am-install.patch
 URL:		http://www.courier-mta.org/maildrop/
