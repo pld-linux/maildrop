@@ -6,14 +6,13 @@
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	2.0.4
-Release:	6
+Version:	2.5.5
+Release:	1
 License:	GPL v2 + OpenSSL exception
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	6a760efe429716ab0be67a1ddc554ed7
-Patch0:		%{name}-db.patch
-Patch1:		%{name}-am-install.patch
+# Source0-md5:	5d71455ab26096ecf4f624fbee0320cb
+Patch0:		%{name}-am-install.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -99,7 +98,6 @@ Statyczne biblioteki maildrop.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 # confuses libtoolize, old contents not overwritten somewhy
 find -name 'aclocal.m4' | xargs rm
@@ -167,7 +165,6 @@ mv $RPM_BUILD_ROOT%{_datadir}/maildrop/html .
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man5/maildir*
 # courier-imap-deliverquota
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/deliverquota
-%{__rm} $RPM_BUILD_ROOT%{_mandir}/man8/deliverquota*
 
 # small pld readme file
 cat > README.pld <<'EOF'
@@ -207,7 +204,6 @@ fi
 %{_mandir}/man1/makemime.1*
 %{_mandir}/man1/reformail.1*
 %{_mandir}/man1/reformime.1*
-%{_mandir}/man7/maildirquota.7*
 %{_mandir}/man7/maildropex.7*
 %{_mandir}/man7/maildropfilter.7*
 %{_mandir}/man7/maildropgdbm.7*
