@@ -7,7 +7,7 @@ Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
 Version:	2.5.5
-Release:	2
+Release:	3
 License:	GPL v2 + OpenSSL exception
 Group:		Applications/Mail
 Source0:	http://downloads.sourceforge.net/courier/%{name}-%{version}.tar.bz2
