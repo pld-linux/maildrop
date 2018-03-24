@@ -1,30 +1,37 @@
-# TODO: use %%banner instead of ugly echoes
 #
 # Conditional build:
-%bcond_without authlib	# disable courier-authlib
+%bcond_without	authlib		# Courier authlib authentication support
+%bcond_without	dovecot		# Dovecot authentication support
 #
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	2.5.5
-Release:	3
-License:	GPL v2 + OpenSSL exception
+Version:	2.9.3
+Release:	1
+License:	GPL v3 with OpenSSL exception
 Group:		Applications/Mail
 Source0:	http://downloads.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	5d71455ab26096ecf4f624fbee0320cb
+# Source0-md5:	fe1dab15f7339516b6d93878fdf42a40
 Patch0:		%{name}-am-install.patch
+Patch1:		%{name}-link.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 %{?with_authlib:BuildRequires:	courier-authlib-devel >= 0.58-4}
+BuildRequires:	courier-unicode-devel >= 2.0
 BuildRequires:	db-devel
+BuildRequires:	fam-devel
+BuildRequires:	libidn-devel >= 0.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	pcre-devel
+BuildRequires:	perl-base
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir		/etc/maildrop
-%define     skip_post_check_so	librfc2045.so.0.0.0 librfc822.so.0.0.0
+# librfc2045 calls rfc2045_error function defined by caller
+%define		skip_post_check_so	librfc2045.so.*
 
 %description
 Maildrop is a combination of a mail filter/mail delivery agent.
@@ -62,6 +69,7 @@ Ta wersja jest skompilowana z obsługą plików baz DB.
 Summary:	Libraries for handling e-mail messages
 Summary(pl.UTF-8):	Biblioteki do obsługi wiadomości e-mail
 Group:		Libraries
+Requires:	courier-unicode >= 2.0
 
 %description libs
 Libraries for handling e-mail messages.
@@ -74,6 +82,9 @@ Summary:	Header files for maildrop libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek maildrop
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	courier-unicode-devel >= 2.0
+Requires:	libidn-devel >= 0.0.0
+Requires:	libstdc++-devel
 
 %description devel
 This package contains the header files that can be useful in
@@ -98,49 +109,39 @@ Statyczne biblioteki maildrop.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 # confuses libtoolize, old contents not overwritten somewhy
-find -name 'aclocal.m4' | xargs rm
+#find -name 'aclocal.m4' | xargs rm
 
 %build
-for d in . numlib liblock unicode rfc822 rfc2045 gdbmobj bdbobj makedat maildir maildrop; do
-cd $d
-	%{__libtoolize}
+%{__libtoolize}
+for d in $(sed -ne 's/.*AC_CONFIG_SUBDIRS(\([^)]*\))/\1/p' configure.ac) . ; do
+	cd $d
+	sed -i -e '/_[L]DFLAGS=-static/d' Makefile.am
 	%{__aclocal}
 	%{__autoconf}
+		if grep -q AC_CONFIG_HEADER configure.ac ; then
+			%{__autoheader}
+		fi
 	%{__automake}
-cd -
-done
-# Change Makefile.am files and force recreate Makefile.in's.
-top=$(pwd)
-find -type f -a '(' -name configure.in -o -name configure.ac ')' | while read a; do
-	cd "$top/$(dirname "$a")"
-
-	if [ -f Makefile.am ]; then
-		sed -i -e '/_[L]DFLAGS=-static/d' Makefile.am
-	fi
-
-	%{__libtoolize}
-	%{__aclocal}
-	%{__autoconf}
-	if grep -q AC_CONFIG_HEADER configure.in; then
-		%{__autoheader}
-	fi
-	%{__automake}
+	cd -
 done
 
+# note: --with-etcdir refers to maildroprc file, the rest use --sysconfdir setting
 %configure \
 	--with-db=db \
-	--with-etcdir=%{_sysconfdir} \
 	--with-devel \
+	--with-etcdir=%{_sysconfdir} \
+	%{!?with_authlib:--disable-authlib} \
+	%{?with_dovecot:--enable-dovecotauth} \
 	--enable-maildirquota \
+	--enable-maildrop-gid=maildrop \
+	--enable-restrict-trusted=0 \
+	--enable-sendmail=/usr/lib/sendmail \
 	--enable-syslog=1 \
 	--enable-trusted-users='root mail daemon postmaster exim qmaild mmdf' \
-	--enable-restrict-trusted=0 \
-	--enable-maildrop-gid=maildrop \
-	--disable-userdb  \
-	%{!?with_authlib:--disable-authlib} \
-	--enable-sendmail=/usr/lib/sendmail
+	--disable-userdb
 
 %{__make} -j1
 
@@ -154,15 +155,16 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}
 	MAILDROPGID=""
 
 rm -rf html
-mv $RPM_BUILD_ROOT%{_datadir}/maildrop/html .
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/maildrop/html .
 
 # courier-authlib
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/makedat
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/makedatprog
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/makedat.1
 # courier-imap-maildirmake
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/maildirmake
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
-%{__rm} $RPM_BUILD_ROOT%{_mandir}/man5/maildir*
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man5/maildir.5
 # courier-imap-deliverquota
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/deliverquota
 
@@ -178,9 +180,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ "$1" = "1" ]; then
-	echo
-	echo Please read README.pld file
-	echo
+%banner -e %{name} <<EOF
+Please read README.pld file if you want additional utilities (userdb, deliverquota, maildirmake).
+EOF
 fi
 
 %post	libs -p /sbin/ldconfig
@@ -188,8 +190,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog COPYING INSTALL README README.postfix NEWS UPGRADE
-%doc maildroptips.txt maildir/README.maildirquota.txt html/ README.pld
+%doc AUTHORS COPYING ChangeLog INSTALL NEWS README README.{dovecotauth,pld,postfix} UPGRADE maildroptips.txt libs/maildir/README.maildirquota.txt html/
 %attr(6755,root,mail) %{_bindir}/maildrop
 %attr(6755,root,mail) %{_bindir}/lockmail
 %attr(755,root,root) %{_bindir}/reformail
@@ -197,7 +198,6 @@ fi
 %attr(755,root,root) %{_bindir}/reformime
 %attr(755,root,root) %{_bindir}/mailbot
 %dir %{_sysconfdir}
-%dir %{_datadir}/maildrop
 %{_mandir}/man1/lockmail.1*
 %{_mandir}/man1/mailbot.1*
 %{_mandir}/man1/maildrop.1*
