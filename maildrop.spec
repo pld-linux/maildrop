@@ -6,19 +6,19 @@
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	2.9.3
+Version:	3.0.0
 Release:	1
 License:	GPL v3 with OpenSSL exception
 Group:		Applications/Mail
 Source0:	http://downloads.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	fe1dab15f7339516b6d93878fdf42a40
+# Source0-md5:	410569d4829549429a99df7511ea3a46
 Patch0:		%{name}-am-install.patch
 Patch1:		%{name}-link.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 %{?with_authlib:BuildRequires:	courier-authlib-devel >= 0.58-4}
-BuildRequires:	courier-unicode-devel >= 2.0
+BuildRequires:	courier-unicode-devel >= 2.1
 BuildRequires:	db-devel
 BuildRequires:	fam-devel
 BuildRequires:	libidn-devel >= 0.0.0
@@ -69,7 +69,7 @@ Ta wersja jest skompilowana z obsługą plików baz DB.
 Summary:	Libraries for handling e-mail messages
 Summary(pl.UTF-8):	Biblioteki do obsługi wiadomości e-mail
 Group:		Libraries
-Requires:	courier-unicode >= 2.0
+Requires:	courier-unicode >= 2.1
 
 %description libs
 Libraries for handling e-mail messages.
@@ -82,7 +82,7 @@ Summary:	Header files for maildrop libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek maildrop
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	courier-unicode-devel >= 2.0
+Requires:	courier-unicode-devel >= 2.1
 Requires:	libidn-devel >= 0.0.0
 Requires:	libstdc++-devel
 
@@ -110,9 +110,6 @@ Statyczne biblioteki maildrop.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-
-# confuses libtoolize, old contents not overwritten somewhy
-#find -name 'aclocal.m4' | xargs rm
 
 %build
 %{__libtoolize}
