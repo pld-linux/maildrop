@@ -6,27 +6,28 @@
 Summary:	maildrop - mail filter/mail delivery agent
 Summary(pl.UTF-8):	maildrop - filtr pocztowy/dostarczyciel poczty
 Name:		maildrop
-Version:	3.0.0
-Release:	2
+Version:	3.0.7
+Release:	1
 License:	GPL v3 with OpenSSL exception
 Group:		Applications/Mail
-Source0:	http://downloads.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-# Source0-md5:	410569d4829549429a99df7511ea3a46
+Source0:	https://downloads.sourceforge.net/courier/%{name}-%{version}.tar.bz2
+# Source0-md5:	7ae78e4dc2b0ad9a2d1d1d3e5d619e76
 Patch0:		%{name}-am-install.patch
 Patch1:		%{name}-link.patch
 URL:		http://www.courier-mta.org/maildrop/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-%{?with_authlib:BuildRequires:	courier-authlib-devel >= 0.58-4}
+%{?with_authlib:BuildRequires:	courier-authlib-devel >= 0.71}
 BuildRequires:	courier-unicode-devel >= 2.1
 BuildRequires:	db-devel
 BuildRequires:	fam-devel
 BuildRequires:	libidn-devel >= 0.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	pcre-devel
+BuildRequires:	pcre2-8-devel
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
+%{?with_authlib:Requires:	courier-authlib-libs >= 0.71}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir		/etc/maildrop
@@ -158,6 +159,9 @@ rm -rf html
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/makedat
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/makedatprog
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/makedat.1
+# courier-imap or courier-maildir-tools
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/maildirkw
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/maildirkw.1
 # courier-imap-maildirmake
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/maildirmake
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/maildirmake.1
@@ -194,9 +198,11 @@ fi
 %attr(755,root,root) %{_bindir}/makemime
 %attr(755,root,root) %{_bindir}/reformime
 %attr(755,root,root) %{_bindir}/mailbot
+%attr(755,root,root) %{_bindir}/maildirwatch
 %dir %{_sysconfdir}
 %{_mandir}/man1/lockmail.1*
 %{_mandir}/man1/mailbot.1*
+%{_mandir}/man1/maildirwatch.1*
 %{_mandir}/man1/maildrop.1*
 %{_mandir}/man1/makemime.1*
 %{_mandir}/man1/reformail.1*
