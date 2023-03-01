@@ -9,14 +9,14 @@
  
  DISTCLEANFILES=rfc822.config
  
---- maildrop-2.9.3/Makefile.am.orig	2018-03-23 21:15:34.417572856 +0100
-+++ maildrop-2.9.3/Makefile.am	2018-03-23 21:24:34.564233357 +0100
-@@ -102,7 +102,7 @@
+--- maildrop-3.1.1/Makefile.am.orig	2018-03-23 21:15:34.417572856 +0100
++++ maildrop-3.1.1/Makefile.am	2018-03-23 21:24:34.564233357 +0100
+@@ -104,7 +104,7 @@ librfc822_la_SOURCES=
  librfc2045_la_SOURCES=
  
  librfc822_la_LIBADD=libs/rfc822/librfc822.la libs/rfc822/libencode.la
 -librfc2045_la_LIBADD=libs/rfc2045/librfc2045.la
 +librfc2045_la_LIBADD=libs/rfc2045/librfc2045.la libs/numlib/libnumlib.la librfc822.la
- librfc822_la_LDFLAGS=-rpath $(libdir)
- librfc2045_la_LDFLAGS=-rpath $(libdir)
+ librfc822_la_LDFLAGS=-rpath $(libdir) -version-info @LIBVERSION_INFO@
+ librfc2045_la_LDFLAGS=-rpath $(libdir) -version-info @LIBVERSION_INFO@
  
